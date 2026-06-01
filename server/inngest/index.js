@@ -199,13 +199,24 @@ const sendBookingConfirmationEmail = inngest.createFunction(
       const movieTitle = booking.show.movie?.title || "Unknown Movie";
       const showDateTime = new Date(booking.show.showDateTime);
       const formattedDate = showDateTime.toLocaleDateString("en-US", {
-        timeZone: "Asia/Dhaka",
+        timeZone: "Asia/kolkata",
       });
-      const formattedTime = showDateTime.toLocaleTimeString("en-US", {
-        timeZone: "Asia/Dhaka",
-      });
+      const formattedTime = showDateTime.toLocaleTimeString("en-IN", {
+      hour: "numeric",
+     minute: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata",
+});
+      const bookingIdDisplay = booking._id;
+
+const seats = booking.bookedSeats?.join(", ") || "N/A";
+
+const amountPaid = booking.amount || "N/A";
 
       try {
+        console.log("NEW EMAIL TEMPLATE LOADED");
+console.log("Seats:", seats);
+console.log("Amount:", amountPaid);
         await sendEmail({
           to: booking.user.email,
           subject: `Payment Confirmation: "${movieTitle}" booked!`,
@@ -216,9 +227,13 @@ const sendBookingConfirmationEmail = inngest.createFunction(
         <strong style="color: #F84565;">"${movieTitle}"</strong> is confirmed.
       </p>
       <p>
-        <strong>Date:</strong> ${formattedDate}<br/>
-        <strong>Time:</strong> ${formattedTime}
-      </p>
+  <strong>Movie:</strong> ${movieTitle}<br/>
+  <strong>Seats:</strong> ${seats}<br/>
+  <strong>Date:</strong> ${formattedDate}<br/>
+  <strong>Time:</strong> ${formattedTime}<br/>
+  <strong>Booking ID:</strong> ${bookingIdDisplay}<br/>
+  <strong>Amount Paid:</strong> ₹${amountPaid}
+</p>
       <p>Enjoy the show! 🍿</p>
       <p>
         Thanks for booking with us!<br/>
@@ -307,13 +322,13 @@ const sendShowReminders = inngest.createFunction(
         is scheduled for
         <strong>
           ${new Date(task.showDateTime).toLocaleDateString("en-US", {
-            timeZone: "Asia/Dhaka",
+            timeZone: "Asia/Kolkata",
           })}
         </strong>
         at
         <strong>
           ${new Date(task.showDateTime).toLocaleTimeString("en-US", {
-            timeZone: "Asia/Dhaka",
+            timeZone: "Asia/Kolkata",
           })}
         </strong>.
       </p>

@@ -7,12 +7,18 @@ import { useAppContext } from "../context/AppContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const { user } = useUser();
   const { openSignIn } = useClerk();
 
   const navigate = useNavigate();
 
-  const { favouriteMovies } = useAppContext();
+  const { favouriteMovies, shows } = useAppContext();
+  const filteredMovies = shows?.filter((movie) =>
+  movie.title
+    ?.toLowerCase()
+    .includes(search.toLowerCase())
+);
 
   return (
     <div className="fixed top-0 left-0 z-50 flex items-center justify-between w-full px-6 py-5 md:px-16 lg:px-36">
@@ -54,7 +60,7 @@ const Navbar = () => {
             scrollTo(0, 0);
             setIsOpen(false);
           }}
-          to="/"
+          to="/theaters"
         >
           Theaters
         </Link>
@@ -64,7 +70,7 @@ const Navbar = () => {
             scrollTo(0, 0);
             setIsOpen(false);
           }}
-          to="/"
+          to="/releases"
         >
           Releases
         </Link>
@@ -83,7 +89,36 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-8">
-        <SearchIcon className="w-6 h-6 cursor-pointer max-md:hidden" />
+        <div className="relative max-md:hidden">
+  <input
+    type="text"
+    placeholder="Search movie..."
+    value={search}
+    onChange={(e) =>
+      setSearch(e.target.value)
+    }
+    className="bg-black border border-primary/20 rounded-full px-4 py-2 text-white w-56"
+  />
+
+  {search && filteredMovies?.length > 0 && (
+    <div className="absolute top-12 left-0 bg-black border border-primary/20 rounded-lg w-full z-50 max-h-60 overflow-y-auto shadow-x1">
+      {filteredMovies
+        .slice(0, 5)
+        .map((movie) => (
+          <div
+            key={movie._id}
+            onClick={() => {
+              navigate(`/movies/${movie._id}`);
+              setSearch("");
+            }}
+            className="p-3 cursor-pointer hover:bg-primary/20 truncate"
+          >
+            {movie.title}
+          </div>
+        ))}
+    </div>
+  )}
+</div>
         {!user ? (
           <button
             onClick={openSignIn}

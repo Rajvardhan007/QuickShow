@@ -13,18 +13,7 @@ const Footer = () => {
             Enjoy a seamless and fast movie booking experience, exclusive
             offers, and more!
           </p>
-          <div className="flex items-center gap-2 mt-4">
-            <img
-              src={assets.googlePlay}
-              alt="Get it on Google Play"
-              className="h-9 w-auto"
-            />
-            <img
-              src={assets.appStore}
-              alt="Download on the App Store"
-              className="h-9 w-auto"
-            />
-          </div>
+          
         </div>
         <div className="flex-1 flex items-start md:justify-end gap-20 md:gap-40">
           <div>
@@ -63,13 +52,13 @@ const Footer = () => {
                   business@quickshow.com
                 </a>
               </p>
-              <p>Phone: +1-800-123-4567</p>
+              <p>Phone: +91-800-423-4567</p>
             </div>
           </div>
         </div>
       </div>
       <p className="pt-4 text-center text-sm pb-5">
-        &copy; {new Date().getFullYear()} QuickShow — Developed by Pristine Falcon {" "}
+        &copy; {new Date().getFullYear()} QuickShow
         . All rights reserved.
       </p>
     </footer>

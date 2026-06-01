@@ -22,7 +22,7 @@ const SeatLayout = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [show, setShow] = useState(null);
   const [occupiedSeats, setOccupiedSeats] = useState([]);
-
+  const [selectedTheater, setSelectedTheater] = useState("");
   const navigate = useNavigate();
 
   const { axios, getToken, user } = useAppContext();
@@ -99,7 +99,11 @@ const SeatLayout = () => {
   const bookTickets = async () => {
     try {
       if (!user) return toast.error("Please login to proceed");
-
+      if (!selectedTheater) {
+  return toast.error(
+    "Please select a theater"
+  );
+}
       if (!selectedSeats || !selectedSeats.length) {
         return toast.error("Please select a time and seats");
       }
@@ -160,6 +164,37 @@ const SeatLayout = () => {
           ))}
         </div>
       </div>
+
+      {/* Theater Selection */}
+<div className="mb-6 border border-primary/20 rounded-lg p-4 bg-primary/10 ">
+  <p className="text-lg font-semibold mb-3">
+    Select Theater
+  </p>
+
+  <select
+    value={selectedTheater}
+    onChange={(e) =>
+      setSelectedTheater(e.target.value)
+    }
+    className="w-full p-3 rounded-lg bg-black border border-primary/20 text-white"
+  >
+    <option value="">
+      Choose Theater
+    </option>
+
+    <option value="INOX Jaipur">
+      INOX Jaipur
+    </option>
+
+    <option value="Cinepolis Jaipur">
+      Cinepolis Jaipur
+    </option>
+
+    <option value="PVR Jaipur">
+      PVR Jaipur
+    </option>
+  </select>
+</div>
 
       {/* Seats Layout  */}
       <div className="relative flex flex-col items-center flex-1 max-md:mt-16">
