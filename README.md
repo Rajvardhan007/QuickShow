@@ -23,7 +23,7 @@
     <i>Designed for movie lovers, admins, and modern theaters seeking a digital booking system.</i>
   </div>
   <br />
-  <a href="https://quick-show-eosin.vercel.app/" target="_blank">
+  <a href="https://quick-show-1cqh.vercel.app/" target="_blank">
     <img src="https://img.shields.io/badge/🚀%20Live%20Demo-brightgreen?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
   </a>
   <br />
